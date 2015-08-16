@@ -1,0 +1,54 @@
+#
+# the Zookeeper instance
+#
+zookeeper:
+    image: misterbisson/triton-zookeeper
+    restart: always
+    mem_limit: 128m
+    ports:
+        - 2181
+        - 2888
+        - 3888
+
+#
+# the Mesos master
+#
+master:
+    image: misterbisson/triton-mesos-master
+    restart: always
+    mem_limit: 128m
+    links:
+       - zookeeper
+    ports:
+        - 5050
+
+#
+# the Marathon instance
+#
+marathon:
+    image: garland/mesosphere-docker-marathon
+    restart: always
+    mem_limit: 128m
+    command: --master zk://zookeeper:2181/mesos --zk zk://zookeeper:2181/marathon
+    links:
+       - zookeeper
+    ports:
+        - 8080
+
+#
+# the Mesos slave
+#
+slave:
+    image: misterbisson/triton-mesos-slave
+    restart: always
+    mem_limit: 128m
+    links:
+       - master
+    ports:
+        - 5051
+    environment:
+        - TLSCA
+        - TLSCERT
+        - TLSKEY
+        - DOCKER_HOST
+        - MESOS_MASTER=master:5050
