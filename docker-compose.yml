@@ -21,6 +21,10 @@ master:
        - zookeeper
     ports:
         - 5050
+    environment:
+        # see http://mesos.apache.org/documentation/latest/configuration/
+        - MESOS_ZK=zk://zookeeper:2181/mesos
+        - MESOS_QUORUM=1
 
 #
 # the Marathon instance
@@ -34,6 +38,9 @@ marathon:
        - zookeeper
     ports:
         - 8080
+    environment:
+        # see https://mesosphere.github.io/marathon/docs/command-line-flags.html
+        # ...but enter as smd arguments; env vars not honored
 
 #
 # the Mesos slave
@@ -43,12 +50,14 @@ slave:
     restart: always
     mem_limit: 128m
     links:
-       - master
+       - zookeeper
     ports:
         - 5051
     environment:
+        # the vars that connect this slave to the Docker API
         - TLSCA
         - TLSCERT
         - TLSKEY
         - DOCKER_HOST
-        - MESOS_MASTER=master:5050
+        # see http://mesos.apache.org/documentation/latest/configuration/
+        - MESOS_MASTER=zk://zookeeper:2181/mesos

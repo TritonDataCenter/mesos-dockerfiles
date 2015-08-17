@@ -1,0 +1,30 @@
+{
+    "id": "nginx",
+    "cmd": "nginx",
+    "cpus": 0.0625,
+    "mem": 128,
+    "disk": 64,
+    "container": {
+        "type": "DOCKER",
+        "docker": {
+            "image": "nginx",
+            "network": "BRIDGE",
+            "portMappings": [
+                {
+                    "containerPort": 80,
+                    "hostPort": 0,
+                    "servicePort": 80,
+                    "protocol": "tcp"
+                }
+            ]
+        }
+    },
+    "instances": 3,
+    "uris": [],
+    "portIndex": 0,
+    "protocol": "TCP",
+    "gracePeriodSeconds": 300,
+    "intervalSeconds": 60,
+    "timeoutSeconds": 20,
+    "maxConsecutiveFailures": 3
+}

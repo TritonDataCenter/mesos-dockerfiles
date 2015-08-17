@@ -36,6 +36,11 @@ echo 'Marathon is now running'
 echo "Dashboard: $MARATHON"
 command -v open >/dev/null 2>&1 && `open http://$MARATHON/`
 
+echo
+echo 'creating some "hello world" apps'
+curl -X POST http://$MARATHON/v2/apps -d @marathon-tasks/nginx.json -H "Content-type: application/json"
+curl -X POST http://$MARATHON/v2/apps -d @marathon-tasks/python.json -H "Content-type: application/json"
+
 # create two slaves in each of multiple data centers
 # this parallelizes docker operations in each data center and adds geographic diversity
 bash ./slaves.sh $COMPOSE_PROJECT_NAME $MESOS_MASTER $DOCKER_HOST
