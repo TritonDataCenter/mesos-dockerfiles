@@ -1,6 +1,6 @@
 {
     "id": "nginx",
-    "cmd": "nginx",
+    "cmd": null,
     "cpus": 0.0625,
     "mem": 128,
     "disk": 64,
@@ -12,9 +12,7 @@
             "portMappings": [
                 {
                     "containerPort": 80,
-                    "hostPort": 0,
-                    "servicePort": 80,
-                    "protocol": "tcp"
+                    "hostPort": 80
                 }
             ]
         }
