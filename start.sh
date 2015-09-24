@@ -14,7 +14,7 @@ export TLSKEY=`cat "$DOCKER_CERT_PATH"/key.pem`
 # the default Mesos master URL
 export MESOS_MASTER=master:5050
 
-echo 'Starting Mesos scheduler framework'
+echo 'Starting Mesos with Marathon'
 
 echo
 echo 'Pulling the most recent images'
@@ -23,6 +23,15 @@ docker-compose pull
 echo
 echo 'Starting containers'
 docker-compose up -d --no-recreate
+
+# rest a moment to let things settle
+sleep 1.3
+
+export CONSUL="$(sdc-listmachines | json -aH -c "'"$COMPOSE_PROJECT_NAME"_consul_1' == this.name" ips.1):8500"
+echo
+echo 'Consul is now running'
+echo "Dashboard: $CONSUL"
+command -v open >/dev/null 2>&1 && `open http://$CONSUL/ui/`
 
 export MESOS_MASTER="$(sdc-listmachines | json -aH -c "'"$COMPOSE_PROJECT_NAME"_master_1' == this.name" ips.1):5050"
 echo
@@ -36,6 +45,9 @@ echo 'Marathon is now running'
 echo "Dashboard: $MARATHON"
 command -v open >/dev/null 2>&1 && `open http://$MARATHON/`
 
+# rest a moment to let things settle
+sleep 1.3
+
 echo
 echo 'creating some "hello world" apps'
 echo 'the output may be ugly'
@@ -48,3 +60,4 @@ echo "# execute the following to create two slaves in each of multiple data cent
 echo "# this parallelizes docker operations in each data center and adds geographic diversity"
 echo
 echo "bash slaves.sh $COMPOSE_PROJECT_NAME $MESOS_MASTER $DOCKER_HOST"
+

@@ -1,0 +1,80 @@
+{
+    "id": "/clustered-couchbase",
+    "apps": [
+        {
+            "id": "/clustered-couchbase/couchbase",
+            "cpus": 0.0625,
+            "mem": 128,
+            "disk": 64,
+            "container": {
+                "type": "DOCKER",
+                "volumes": [],
+                "docker": {
+                    "image": "nginx",
+                    "network": "BRIDGE",
+                    "portMappings": [
+                        {
+                            "containerPort": 80,
+                            "hostPort": 80,
+                            "servicePort": 0,
+                            "protocol": "tcp"
+                        }
+                    ],
+                    "privileged": false,
+                    "parameters": [
+                        {
+                            "key": "link",
+                            "value": "mesos_consul_1:consul"
+                        }
+                    ],
+                    "forcePullImage": false
+                }
+            },
+            "instances": 3,
+            "maxLaunchDelaySeconds": 60,
+            "upgradeStrategy": {
+                "minimumHealthCapacity": 0.9,
+                "maximumOverCapacity": 0.2
+            },
+            "uris": []
+        },
+        {
+            "id": "/clustered-couchbase/benchmark",
+            "cpus": 0.0625,
+            "mem": 128,
+            "disk": 64,
+            "container": {
+                "type": "DOCKER",
+                "volumes": [],
+                "docker": {
+                    "image": "nginx",
+                    "network": "BRIDGE",
+                    "portMappings": [
+                        {
+                            "containerPort": 80,
+                            "hostPort": 80,
+                            "servicePort": 0,
+                            "protocol": "tcp"
+                        }
+                    ],
+                    "privileged": false,
+                    "parameters": [
+                        {
+                            "key": "link",
+                            "value": "mesos_consul_1:consul"
+                        }
+                    ],
+                    "forcePullImage": false
+                }
+            },
+            "instances": 3,
+            "maxLaunchDelaySeconds": 60,
+            "upgradeStrategy": {
+                "minimumHealthCapacity": 0.9,
+                "maximumOverCapacity": 0.2
+            },
+            "uris": []
+        }
+
+    ]
+}

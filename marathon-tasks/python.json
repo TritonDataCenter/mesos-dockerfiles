@@ -1,5 +1,5 @@
 {
-    "id": "python",
+    "id": "/python",
     "cmd": "python3 -m http.server 80",
     "cpus": 0.0625,
     "mem": 64,
@@ -18,11 +18,5 @@
         }
     },
     "instances": 3,
-    "uris": [],
-    "portIndex": 0,
-    "protocol": "TCP",
-    "gracePeriodSeconds": 300,
-    "intervalSeconds": 60,
-    "timeoutSeconds": 20,
-    "maxConsecutiveFailures": 3
+    "uris": []
 }
