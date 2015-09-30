@@ -39,3 +39,4 @@ ENV MESOS_HOSTNAME_LOOKUP=false
 EXPOSE $MESOS_PORT
 
 CMD ["triton-mesos-slave"]
+

@@ -54,3 +54,4 @@ echo "# execute the following to create two slaves in each of multiple data cent
 echo "# this parallelizes docker operations in each data center and adds geographic diversity"
 echo
 echo "bash slaves.sh $COMPOSE_PROJECT_NAME $MESOS_MASTER $DOCKER_HOST"
+

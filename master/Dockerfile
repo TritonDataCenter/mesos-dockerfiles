@@ -20,3 +20,4 @@ ENV MESOS_HOSTNAME_LOOKUP=false
 EXPOSE $MESOS_PORT
 
 CMD ["/usr/local/sbin/mesos-master"]
+

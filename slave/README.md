@@ -11,3 +11,4 @@ To support this, the slave _doesn't run inside a VM_ or on a single-tenant bare 
 ## Provisions via Triton's Docker Remote API
 
 The slave provisions and manages Mesos tasks via the [Docker Remote API](https://docs.joyent.com/public-cloud/api-access/docker) in a Triton data center, and for now, that requires the private key for a user that has permission to connect to that API. The Triton Mesos Slave Docker image receives the keys and other user details as environment variables passed during `docker run...`. The `Dockerfile` in this directory and the `start.sh` that is used to deploy the composed environment work together to fetch the data and pass it into the container.
+
