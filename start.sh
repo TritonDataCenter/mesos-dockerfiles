@@ -27,6 +27,12 @@ docker-compose up -d --no-recreate
 # rest a moment to let things settle
 sleep 1.3
 
+export CONSUL="$(sdc-listmachines | json -aH -c "'"$COMPOSE_PROJECT_NAME"_consul_1' == this.name" ips.1):8500"
+echo
+echo 'Consul is now running'
+echo "Dashboard: $CONSUL"
+command -v open >/dev/null 2>&1 && `open http://$CONSUL/ui/`
+
 export MESOS_MASTER="$(sdc-listmachines | json -aH -c "'"$COMPOSE_PROJECT_NAME"_master_1' == this.name" ips.1):5050"
 echo
 echo 'Mesos is now running'
