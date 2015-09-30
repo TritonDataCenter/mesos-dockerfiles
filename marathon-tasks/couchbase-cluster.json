@@ -63,6 +63,10 @@
                 }
             },
             "instances": 3,
+            "labels": {
+                "environment": "demo",
+                "service": "couchbase"
+            },
             "maxLaunchDelaySeconds": 60,
             "upgradeStrategy": {
                 "minimumHealthCapacity": 0.9,
@@ -93,7 +97,11 @@
                 }
             },
             "instances": 0,
-            "maxLaunchDelaySeconds": 60,
+             "labels": {
+                "environment": "demo",
+                "service": "benchmark"
+            },
+           "maxLaunchDelaySeconds": 60,
             "upgradeStrategy": {
                 "minimumHealthCapacity": 0.9,
                 "maximumOverCapacity": 0.2
