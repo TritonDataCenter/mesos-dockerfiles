@@ -3,20 +3,48 @@
     "apps": [
         {
             "id": "/clustered-couchbase/couchbase",
-            "cpus": 0.0625,
-            "mem": 128,
-            "disk": 64,
+            "cpus": 2,
+            "mem": 4096,
             "container": {
                 "type": "DOCKER",
                 "volumes": [],
                 "docker": {
-                    "image": "nginx",
+                    "image": "misterbisson/triton-couchbase",
                     "network": "BRIDGE",
                     "portMappings": [
                         {
-                            "containerPort": 80,
-                            "hostPort": 80,
-                            "servicePort": 0,
+                            "containerPort": 8091,
+                            "hostPort": 8091,
+                            "protocol": "tcp"
+                        },
+                        {
+                            "containerPort": 8092,
+                            "hostPort": 8092,
+                            "protocol": "tcp"
+                        },
+                        {
+                            "containerPort": 11207,
+                            "hostPort": 11207,
+                            "protocol": "tcp"
+                        },
+                        {
+                            "containerPort": 11210,
+                            "hostPort": 11210,
+                            "protocol": "tcp"
+                        },
+                        {
+                            "containerPort": 11211,
+                            "hostPort": 11211,
+                            "protocol": "tcp"
+                        },
+                        {
+                            "containerPort": 18091,
+                            "hostPort": 18091,
+                            "protocol": "tcp"
+                        },
+                        {
+                            "containerPort": 18092,
+                            "hostPort": 18092,
                             "protocol": "tcp"
                         }
                     ],
@@ -25,6 +53,10 @@
                         {
                             "key": "link",
                             "value": "mesos_consul_1:consul"
+                        },
+                        {
+                            "key": "restart",
+                            "value": "always"
                         }
                     ],
                     "forcePullImage": false
@@ -40,23 +72,16 @@
         },
         {
             "id": "/clustered-couchbase/benchmark",
-            "cpus": 0.0625,
-            "mem": 128,
-            "disk": 64,
+            "cpus": 0.5,
+            "mem": 1024,
+            "cmd": "start.bash",
             "container": {
                 "type": "DOCKER",
                 "volumes": [],
                 "docker": {
-                    "image": "nginx",
+                    "image": "misterbisson/couchbase-cloud-benchmark",
                     "network": "BRIDGE",
-                    "portMappings": [
-                        {
-                            "containerPort": 80,
-                            "hostPort": 80,
-                            "servicePort": 0,
-                            "protocol": "tcp"
-                        }
-                    ],
+                    "portMappings": [],
                     "privileged": false,
                     "parameters": [
                         {
@@ -67,7 +92,7 @@
                     "forcePullImage": false
                 }
             },
-            "instances": 3,
+            "instances": 0,
             "maxLaunchDelaySeconds": 60,
             "upgradeStrategy": {
                 "minimumHealthCapacity": 0.9,
@@ -75,6 +100,5 @@
             },
             "uris": []
         }
-
     ]
 }
