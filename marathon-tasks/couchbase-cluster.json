@@ -9,7 +9,7 @@
                 "type": "DOCKER",
                 "volumes": [],
                 "docker": {
-                    "image": "misterbisson/triton-couchbase",
+                    "image": "misterbisson/triton-couchbase:enterprise-3.0.3-r2",
                     "network": "BRIDGE",
                     "portMappings": [
                         {

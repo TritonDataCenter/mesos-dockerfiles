@@ -53,7 +53,9 @@ echo 'creating some "hello world" apps'
 echo 'the output may be ugly'
 curl -X POST http://$MARATHON/v2/apps -d @marathon-tasks/nginx.json -H "Content-type: application/json"
 echo
-curl -X POST http://$MARATHON/v2/apps -d @marathon-tasks/python.json -H "Content-type: application/json"
+curl -X POST http://$MARATHON/v2/apps -d @marathon-tasks/couchbase.json -H "Content-type: application/json"
+echo
+#curl -X POST http://$MARATHON/v2/groups -d @marathon-tasks/couchbase-cluster.json -H "Content-type: application/json"
 echo
 
 echo "# execute the following to create two slaves in each of multiple data centers"

@@ -23,7 +23,7 @@
             "forcePullImage": false
         }
     },
-    "instances": 3,
+    "instances": 1,
     "maxLaunchDelaySeconds": 60,
     "upgradeStrategy": {
         "minimumHealthCapacity": 0.9,
