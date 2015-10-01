@@ -27,26 +27,54 @@ docker-compose up -d --no-recreate
 # rest a moment to let things settle
 sleep 1.3
 
+# Consul dashboard
 export CONSUL="$(sdc-listmachines | json -aH -c "'"$COMPOSE_PROJECT_NAME"_consul_1' == this.name" ips.1):8500"
 echo
 echo 'Consul is now running'
 echo "Dashboard: $CONSUL"
 command -v open >/dev/null 2>&1 && `open http://$CONSUL/ui/`
 
+# Wait for Mesos master
+echo
+echo 'Waiting for Mesos master'
 export MESOS_MASTER="$(sdc-listmachines | json -aH -c "'"$COMPOSE_PROJECT_NAME"_master_1' == this.name" ips.1):5050"
+ISRESPONSIVE=0
+while [ $ISRESPONSIVE != 1 ]; do
+    echo -n '.'
+
+    curl -fs http://$MESOS_MASTER/master/state.json &> /dev/null
+    if [ $? -ne 0 ]
+    then
+        sleep .7
+    else
+        let ISRESPONSIVE=1
+    fi
+done
 echo
 echo 'Mesos is now running'
 echo "Dashboard: $MESOS_MASTER"
 command -v open >/dev/null 2>&1 && `open http://$MESOS_MASTER/`
 
+# Wait for Marathon
+echo
+echo 'Waiting for Marathon'
 export MARATHON="$(sdc-listmachines | json -aH -c "'"$COMPOSE_PROJECT_NAME"_marathon_1' == this.name" ips.1):8080"
+ISRESPONSIVE=0
+while [ $ISRESPONSIVE != 1 ]; do
+    echo -n '.'
+
+    curl -fs http://$MARATHON/v2/info &> /dev/null
+    if [ $? -ne 0 ]
+    then
+        sleep .7
+    else
+        let ISRESPONSIVE=1
+    fi
+done
 echo
 echo 'Marathon is now running'
 echo "Dashboard: $MARATHON"
 command -v open >/dev/null 2>&1 && `open http://$MARATHON/`
-
-# rest a moment to let things settle
-sleep 1.3
 
 echo
 echo 'creating some "hello world" apps'
@@ -62,4 +90,3 @@ echo "# execute the following to create two slaves in each of multiple data cent
 echo "# this parallelizes docker operations in each data center and adds geographic diversity"
 echo
 echo "bash slaves.sh $COMPOSE_PROJECT_NAME $MESOS_MASTER $DOCKER_HOST"
-
