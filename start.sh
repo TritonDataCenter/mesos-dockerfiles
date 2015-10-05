@@ -42,7 +42,7 @@ ISRESPONSIVE=0
 while [ $ISRESPONSIVE != 1 ]; do
     echo -n '.'
 
-    curl -fs http://$MESOS_MASTER/master/state.json &> /dev/null
+    curl -fs --connect-timeout 1 http://$MESOS_MASTER/master/state.json &> /dev/null
     if [ $? -ne 0 ]
     then
         sleep .7
@@ -63,7 +63,7 @@ ISRESPONSIVE=0
 while [ $ISRESPONSIVE != 1 ]; do
     echo -n '.'
 
-    curl -fs http://$MARATHON/v2/info &> /dev/null
+    curl -fs --connect-timeout 1 http://$MARATHON/v2/info &> /dev/null
     if [ $? -ne 0 ]
     then
         sleep .7
