@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# check for prereqs
+command -v docker >/dev/null 2>&1 || { echo "Docker is required, but does not appear to be installed. See https://docs.joyent.com/public-cloud/api-access/docker"; exit; }
+command -v sdc-listmachines >/dev/null 2>&1 || { echo "Joyent CloudAPI CLI is required, but does not appear to be installed. See https://apidocs.joyent.com/cloudapi/#getting-started"; exit; }
+command -v json >/dev/null 2>&1 || { echo "JSON CLI tool is required, but does not appear to be installed. See https://apidocs.joyent.com/cloudapi/#getting-started"; exit; }
+
 # manually name the project
 export COMPOSE_PROJECT_NAME=mesos
 
@@ -99,7 +104,7 @@ echo
 #curl -X POST http://$MARATHON/v2/groups -d @marathon-tasks/couchbase-cluster.json -H "Content-type: application/json"
 echo
 
-echo "# execute the following to create two slaves in each of multiple data centers"
-echo "# this parallelizes docker operations in each data center and adds geographic diversity"
-echo
-echo "bash slaves.sh $COMPOSE_PROJECT_NAME $MESOS_MASTER $DOCKER_HOST"
+# echo "# execute the following to create two slaves in each of multiple data centers"
+# echo "# this parallelizes docker operations in each data center and adds geographic diversity"
+# echo
+# echo "bash slaves.sh $COMPOSE_PROJECT_NAME $MESOS_MASTER $DOCKER_HOST"
