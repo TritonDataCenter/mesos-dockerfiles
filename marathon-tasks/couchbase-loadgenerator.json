@@ -1,0 +1,34 @@
+{
+    "id": "/couchbase-loadgenerator",
+    "cpus": 0.5,
+    "mem": 1024,
+    "cmd": "start.bash",
+    "container": {
+        "type": "DOCKER",
+        "volumes": [],
+        "docker": {
+            "image": "misterbisson/couchbase-cloud-benchmark",
+            "network": "BRIDGE",
+            "portMappings": [],
+            "privileged": false,
+            "parameters": [
+                {
+                    "key": "link",
+                    "value": "mesos_consul_1:consul"
+                }
+            ],
+            "forcePullImage": false
+        }
+    },
+    "instances": 0,
+     "labels": {
+        "environment": "demo",
+        "service": "loadgenerator"
+    },
+   "maxLaunchDelaySeconds": 60,
+    "upgradeStrategy": {
+        "minimumHealthCapacity": 0.5,
+        "maximumOverCapacity": 0.5
+    },
+    "uris": []
+}

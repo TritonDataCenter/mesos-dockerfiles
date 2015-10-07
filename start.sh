@@ -94,17 +94,18 @@ echo 'Marathon is now running'
 echo "Dashboard: $MARATHON"
 command -v open >/dev/null 2>&1 && `open http://$MARATHON/`
 
+# echo "# execute the following to create two slaves in each of multiple data centers"
+# echo "# this parallelizes docker operations in each data center and adds geographic diversity"
+# echo
+# echo "bash start-slaves.sh $COMPOSE_PROJECT_NAME $MESOS_MASTER $DOCKER_HOST"
+
+
 echo
 echo 'creating some "hello world" apps'
 echo 'the output may be ugly'
 curl -X POST http://$MARATHON/v2/apps -d @marathon-tasks/nginx.json -H "Content-type: application/json"
 echo
-curl -X POST http://$MARATHON/v2/apps -d @marathon-tasks/couchbase.json -H "Content-type: application/json"
-echo
-#curl -X POST http://$MARATHON/v2/groups -d @marathon-tasks/couchbase-cluster.json -H "Content-type: application/json"
-echo
 
-# echo "# execute the following to create two slaves in each of multiple data centers"
-# echo "# this parallelizes docker operations in each data center and adds geographic diversity"
-# echo
-# echo "bash slaves.sh $COMPOSE_PROJECT_NAME $MESOS_MASTER $DOCKER_HOST"
+echo 'creating a Couchbase cluster'
+# bash ./start-couchbasecluster.sh $COMPOSE_PROJECT_NAME $CONSUL $MARATHON
+echo "bash ./start-couchbasecluster.sh $COMPOSE_PROJECT_NAME $CONSUL $MARATHON"

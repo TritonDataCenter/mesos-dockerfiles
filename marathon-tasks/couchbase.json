@@ -66,8 +66,8 @@
     },
     "maxLaunchDelaySeconds": 60,
     "upgradeStrategy": {
-        "minimumHealthCapacity": 0.9,
-        "maximumOverCapacity": 0.2
+        "minimumHealthCapacity": 1,
+        "maximumOverCapacity": 1
     },
     "uris": []
 }
