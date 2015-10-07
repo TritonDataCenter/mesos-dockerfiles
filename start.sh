@@ -24,14 +24,27 @@ echo
 echo 'Starting containers'
 docker-compose up -d --no-recreate
 
-# rest a moment to let things settle
-sleep 1.3
 
-# Consul dashboard
+
+# Wait for Consul
+echo
+echo 'Waiting for Consul'
 export CONSUL="$(sdc-listmachines | json -aH -c "'"$COMPOSE_PROJECT_NAME"_consul_1' == this.name" ips.1):8500"
+ISRESPONSIVE=0
+while [ $ISRESPONSIVE != 1 ]; do
+    echo -n '.'
+
+    curl -fs --connect-timeout 1 http://$CONSUL/ui &> /dev/null
+    if [ $? -ne 0 ]
+    then
+        sleep .7
+    else
+        let ISRESPONSIVE=1
+    fi
+done
 echo
 echo 'Consul is now running'
-echo "Dashboard: $CONSUL"
+echo "Dashboard: $CONSUL/ui/"
 command -v open >/dev/null 2>&1 && `open http://$CONSUL/ui/`
 
 # Wait for Mesos master
