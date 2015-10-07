@@ -24,12 +24,12 @@ echo
 echo 'Starting containers'
 docker-compose up -d --no-recreate
 
-
+ mesos_consul_1
 
 # Wait for Consul
 echo
 echo 'Waiting for Consul'
-export CONSUL="$(sdc-listmachines | json -aH -c "'"$COMPOSE_PROJECT_NAME"_consul_1' == this.name" ips.1):8500"
+export CONSUL="$(docker inspect -f '{{ .NetworkSettings.IPAddress }}' "$COMPOSE_PROJECT_NAME"_consul_1):8500"
 ISRESPONSIVE=0
 while [ $ISRESPONSIVE != 1 ]; do
     echo -n '.'
@@ -50,7 +50,7 @@ command -v open >/dev/null 2>&1 && `open http://$CONSUL/ui/`
 # Wait for Mesos master
 echo
 echo 'Waiting for Mesos master'
-export MESOS_MASTER="$(sdc-listmachines | json -aH -c "'"$COMPOSE_PROJECT_NAME"_master_1' == this.name" ips.1):5050"
+export MESOS_MASTER="$(docker inspect -f '{{ .NetworkSettings.IPAddress }}' "$COMPOSE_PROJECT_NAME"_master_1):5050"
 ISRESPONSIVE=0
 while [ $ISRESPONSIVE != 1 ]; do
     echo -n '.'
@@ -71,7 +71,7 @@ command -v open >/dev/null 2>&1 && `open http://$MESOS_MASTER/`
 # Wait for Marathon
 echo
 echo 'Waiting for Marathon'
-export MARATHON="$(sdc-listmachines | json -aH -c "'"$COMPOSE_PROJECT_NAME"_marathon_1' == this.name" ips.1):8080"
+export MARATHON="$(docker inspect -f '{{ .NetworkSettings.IPAddress }}' "$COMPOSE_PROJECT_NAME"_marathon_1):8080"
 ISRESPONSIVE=0
 while [ $ISRESPONSIVE != 1 ]; do
     echo -n '.'
