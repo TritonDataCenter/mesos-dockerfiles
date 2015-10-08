@@ -18,7 +18,7 @@ curl -X POST http://$MARATHON/v2/apps -d @marathon-tasks/couchbase-loadgenerator
 echo
 
 # get the IP of a Couchbase host awaiting configuration
-export COUCHBASECONTAINERID=$(curl -L -s -f curl http://$CONSUL/v1/health/service/couchbase-unconfigured?passing | json -aH Service.ID | head -1 | sed 's/couchbase-unconfigured-//')
+export COUCHBASECONTAINERID=$(curl -L -s -f http://$CONSUL/v1/health/service/couchbase-unconfigured?passing | json -aH Service.ID | head -1 | sed 's/couchbase-unconfigured-//')
 
 export COUCHBASEHOST=$(curl -L -s -f curl http://$CONSUL/v1/health/service/couchbase-unconfigured?passing | json -aH Service.ID | head -1 | sed 's/couchbase-unconfigured-//')
 
@@ -32,11 +32,13 @@ while [ $ISRESPONSIVE != 1 ]; do
     echo -n '.'
 
     docker exec -it $COUCHBASECONTAINERID triton-bootstrap bootstrap benchmark
-    if [ "$RUNNING" == "true" ]
+    if [ $? -eq 0 ]
     then
-        let ISRESPONSIVE=1
-    else
+        # docker exec failed, so wait a moment
         sleep .7
+    else
+        # successful docker exec, continue
+        let ISRESPONSIVE=1
     fi
 done
 echo

@@ -29,8 +29,6 @@ echo
 echo 'Starting containers'
 docker-compose up -d --no-recreate
 
- mesos_consul_1
-
 # Wait for Consul
 echo
 echo 'Waiting for Consul'
