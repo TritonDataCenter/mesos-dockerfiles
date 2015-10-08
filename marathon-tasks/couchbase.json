@@ -59,7 +59,7 @@
             "forcePullImage": false
         }
     },
-    "instances": 1,
+    "instances": 5,
     "labels": {
         "environment": "demo",
         "service": "couchbase"

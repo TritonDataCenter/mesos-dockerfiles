@@ -20,7 +20,7 @@
             "forcePullImage": false
         }
     },
-    "instances": 0,
+    "instances": 1,
      "labels": {
         "environment": "demo",
         "service": "loadgenerator"
