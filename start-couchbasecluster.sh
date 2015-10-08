@@ -17,14 +17,31 @@ echo
 curl -X POST http://$MARATHON/v2/apps -d @marathon-tasks/couchbase-loadgenerator.json -H "Content-type: application/json"
 echo
 
-# get the IP of a Couchbase host awaiting configuration
-export COUCHBASECONTAINERID=$(curl -L -s -f http://$CONSUL/v1/health/service/couchbase-unconfigured?passing | json -aH Service.ID | head -1 | sed 's/couchbase-unconfigured-//')
+#
+# Wait for a Couchbase instance to register as awaiting configuration in Consul
+#
+echo
+echo 'Waiting for a Couchbase instance to register as awaiting configuration in Consul'
+ISRESPONSIVE=0
+while [ $ISRESPONSIVE != 1 ]; do
+    echo -n '.'
 
-export COUCHBASEHOST=$(curl -L -s -f curl http://$CONSUL/v1/health/service/couchbase-unconfigured?passing | json -aH Service.ID | head -1 | sed 's/couchbase-unconfigured-//')
+    # get the container ID of a Couchbase instance awaiting configuration
+    export COUCHBASECONTAINERID=$(curl -L -s -f http://$CONSUL/v1/health/service/couchbase-unconfigured?passing | json -aH Service.ID | head -1 | sed 's/couchbase-unconfigured-//')
+    if [ -n "$COUCHBASECONTAINERID" ]
+    then
+        # we've got a container ID, move on to the next step
+        let ISRESPONSIVE=1
+    else
+        # nothing registered, just wait
+        sleep .7
+    fi
+done
+echo
 
-# TODO, insert sanity check to be sure we have one IP here
-
+#
 # Wait for Couchbase
+#
 echo
 echo 'Waiting to bootstrap Couchbase'
 ISRESPONSIVE=0
@@ -34,16 +51,18 @@ while [ $ISRESPONSIVE != 1 ]; do
     docker exec -it $COUCHBASECONTAINERID triton-bootstrap bootstrap benchmark
     if [ $? -eq 0 ]
     then
-        # docker exec failed, so wait a moment
-        sleep .7
-    else
         # successful docker exec, continue
         let ISRESPONSIVE=1
+    else
+        # docker exec failed, so wait a moment
+        sleep .7
     fi
 done
 echo
 
+#
 # Open the Couchbase dashboard
+#
 export COUCHBASEHOST="$(docker inspect -f '{{ .NetworkSettings.IPAddress }}' $COUCHBASECONTAINERID):8091"
 echo
 echo 'Couchbase cluster running and bootstrapped'
