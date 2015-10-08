@@ -63,3 +63,19 @@ slave:
         # see http://mesos.apache.org/documentation/latest/configuration/
         - MESOS_MASTER=zk://zookeeper:2181/mesos
 
+#
+# Using a single Consul host is _highly_ discouraged, but yolo
+#
+consul:
+    image: progrium/consul:latest
+    command: -server -bootstrap -ui-dir /ui
+    restart: always
+    mem_limit: 128m
+    ports:
+        - 53
+        - 8300
+        - 8301
+        - 8302
+        - 8400
+        - 8500
+
