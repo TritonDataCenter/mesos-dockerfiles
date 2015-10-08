@@ -15,11 +15,11 @@ curl -O https://raw.githubusercontent.com/joyent/sdc-docker/master/tools/sdc-doc
 
 ## Instructions
 
-1. [Clone](git@github.com:joyent/mesos-dockerfiles.git) or [download](https://github.com/joyent/mesos-dockerfiles/archive/master.zip) this repo.
-1. `cd` into the cloned or downloaded directory.
-1. Execute `bash start.sh` to start everything up.
-1. The Mesos and Marathon dashboards should automatically open in your browser, or follow the links output by the `start.sh` script above.
-1. The `start.sh` script will register two sample tasks, each using three instances. Scale those up or down, or delete as you wish.
+1. [Clone](git@github.com:joyent/mesos-dockerfiles.git) or [download](https://github.com/joyent/mesos-dockerfiles/archive/master.zip) this repo
+1. `cd` into the cloned or downloaded directory
+1. Execute `bash start.sh` to start everything up
+1. The Mesos and Marathon dashboards should automatically open in your browser, or follow the links output by the `start.sh` script above
+1. The `start.sh` script offers some next steps, including setting environment variables and registering some sample tasks in Marathon. Follow those instructions to start a trivial Nginx example, or a compose Couchbase cluster and client application.
 
 ## Next steps
 
