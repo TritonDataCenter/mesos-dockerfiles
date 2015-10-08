@@ -97,13 +97,21 @@ command -v open >/dev/null 2>&1 && `open http://$MARATHON/`
 # echo
 # echo "bash start-slaves.sh $COMPOSE_PROJECT_NAME $MESOS_MASTER $DOCKER_HOST"
 
+echo
+echo 'Mesos with Marathon environment now running'
 
 echo
-echo 'creating some "hello world" apps'
-echo 'the output may be ugly'
-curl -X POST http://$MARATHON/v2/apps -d @marathon-tasks/nginx.json -H "Content-type: application/json"
+echo 'Set your environment vars for convenience:'
+echo 'eval "$(bash env.sh $COMPOSE_PROJECT_NAME)"'
+
+echo
+echo 'Get started with some "hello world" apps:'
+
+echo
+echo 'Add a simple Nginx app'
+echo "curl -X POST http://$MARATHON/v2/apps -d @marathon-tasks/nginx.json -H 'Content-type: application/json'"
 echo
 
-echo 'creating a Couchbase cluster'
-# bash ./start-couchbasecluster.sh $COMPOSE_PROJECT_NAME $CONSUL $MARATHON
+echo
+echo 'Create a Couchbase cluster with sample app'
 echo "bash ./start-couchbasecluster.sh $COMPOSE_PROJECT_NAME $CONSUL $MARATHON"
