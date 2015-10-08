@@ -10,8 +10,8 @@ echo "        Consul: $CONSUL"
 echo "      Marathon: $MARATHON"
 
 echo
-echo 'creating some "hello world" apps'
-echo 'the output may be ugly'
+echo 'Registering the apps in Marathon'
+echo '...expect some JSON'
 curl -X POST http://$MARATHON/v2/apps -d @marathon-tasks/couchbase.json -H "Content-type: application/json"
 echo
 curl -X POST http://$MARATHON/v2/apps -d @marathon-tasks/couchbase-loadgenerator.json -H "Content-type: application/json"

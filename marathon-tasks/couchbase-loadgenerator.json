@@ -1,5 +1,6 @@
 {
     "id": "/couchbase-loadgenerator",
+    "dependencies": ["/couchbase"],
     "cpus": 0.5,
     "mem": 1024,
     "cmd": "start.bash",
