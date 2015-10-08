@@ -70,3 +70,4 @@ echo "Dashboard: $COUCHBASEHOST"
 echo "username=Administrator"
 echo "password=password"
 command -v open >/dev/null 2>&1 && `open http://$COUCHBASEHOST/index.html#sec=servers`
+echo

@@ -114,4 +114,8 @@ echo
 
 echo
 echo 'Create a Couchbase cluster with sample app'
-echo "bash ./start-couchbasecluster.sh $COMPOSE_PROJECT_NAME $CONSUL $MARATHON"
+echo "bash start-couchbasecluster.sh $COMPOSE_PROJECT_NAME $CONSUL $MARATHON"
+
+echo
+echo 'Now get hacking!'
+echo
