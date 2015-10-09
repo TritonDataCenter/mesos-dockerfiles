@@ -8,9 +8,13 @@
 #
 # anyway, I'll take the opportunity to parralelize this with happy ampersands
 
-echo "     project prefix: $1"
-echo "       mesos master: $2"
-echo "current Docker host: $3"
+COMPOSE_PROJECT_NAME=${1:-${COMPOSE_PROJECT_NAME}}
+CONSUL=${2:-${CONSUL}}
+MARATHON=${3:-${MARATHON}}
+
+echo "     project prefix: $COMPOSE_PROJECT_NAME"
+echo "       mesos master: $CONSUL"
+echo "current Docker host: $MARATHON"
 
 function start_slave {
 
@@ -36,14 +40,12 @@ function start_slave {
     done
 }
 
-export COMPOSE_PROJECT_NAME=$1
-export MESOS_MASTER=$2
 datacenters=( "us-east-3b" "us-east-1" "us-sw-1" "eu-ams-1" )
 for i in "${datacenters[@]}"
 do
 
     # don't create additional hosts for the current data center
-    if [ "tcp://$i.docker.joyent.com:2376" == "$3" ]
+    if [ "tcp://$i.docker.joyent.com:2376" == "$MARATHON" ]
     then
         continue
     fi
