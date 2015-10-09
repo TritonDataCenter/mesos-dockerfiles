@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # Capture the vars from the command line
-COMPOSE_PROJECT_NAME=$1
-CONSUL=$2
-MARATHON=$3
+COMPOSE_PROJECT_NAME=${1:-${COMPOSE_PROJECT_NAME}}
+CONSUL=${2:-${CONSUL}}
+MARATHON=${3:-${MARATHON}}
 
 echo "project prefix: $COMPOSE_PROJECT_NAME"
 echo "        Consul: $CONSUL"
