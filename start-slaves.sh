@@ -6,7 +6,7 @@
 # this doesn't use Docker Compose because it doesn't seem to work for this case
 # or, perhaps it's just me who can't make it work
 #
-# anyway, I'll take the opportunity to parralelize this with happy ampersands
+# anyway, I'll take the opportunity to parallelize this with happy ampersands
 
 COMPOSE_PROJECT_NAME=${1:-${COMPOSE_PROJECT_NAME}}
 MESOS_MASTER=${2:-${MESOS_MASTER}}
@@ -14,7 +14,7 @@ DOCKER_HOST=${3:-${DOCKER_HOST}}
 
 echo "     project prefix: $COMPOSE_PROJECT_NAME"
 echo "       mesos master: $MESOS_MASTER"
-echo "current Docker host: $MARATHON"
+echo "current Docker host: $DOCKER_HOST"
 
 function start_slave {
 
