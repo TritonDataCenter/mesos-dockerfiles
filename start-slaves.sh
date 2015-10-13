@@ -9,11 +9,11 @@
 # anyway, I'll take the opportunity to parralelize this with happy ampersands
 
 COMPOSE_PROJECT_NAME=${1:-${COMPOSE_PROJECT_NAME}}
-CONSUL=${2:-${CONSUL}}
-MARATHON=${3:-${MARATHON}}
+MESOS_MASTER=${2:-${MESOS_MASTER}}
+DOCKER_HOST=${3:-${DOCKER_HOST}}
 
 echo "     project prefix: $COMPOSE_PROJECT_NAME"
-echo "       mesos master: $CONSUL"
+echo "       mesos master: $MESOS_MASTER"
 echo "current Docker host: $MARATHON"
 
 function start_slave {
@@ -45,7 +45,7 @@ for i in "${datacenters[@]}"
 do
 
     # don't create additional hosts for the current data center
-    if [ "tcp://$i.docker.joyent.com:2376" == "$MARATHON" ]
+    if [ "tcp://$i.docker.joyent.com:2376" == "$DOCKER_HOST" ]
     then
         continue
     fi
