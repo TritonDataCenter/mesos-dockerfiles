@@ -16,7 +16,7 @@ echo "current Docker host: $DOCKER_HOST"
 
 function start_agent {
 
-    name="${COMPOSE_PROJECT_NAME}_agent_"$AGENT_DC_${i}"
+    name="${COMPOSE_PROJECT_NAME}_agent_${AGENT_DC}_${i}"
     link="${COMPOSE_PROJECT_NAME}_zookeeper_1"
     echo "creating $name on $DOCKER_HOST connected to $MESOS_MASTER"
 
@@ -27,12 +27,12 @@ function start_agent {
     --name=$name \
     --restart=always \
     --link "$link":zookeeper \
-    -e "TLSCA=`cat "$DOCKER_CERT_PATH"/ca.pem`" \
-    -e "TLSCERT=`cat "$DOCKER_CERT_PATH"/cert.pem`" \
-    -e "TLSKEY=`cat "$DOCKER_CERT_PATH"/key.pem`" \
+    -e "TLSCA=`cat ${DOCKER_CERT_PATH}/ca.pem`" \
+    -e "TLSCERT=`cat ${DOCKER_CERT_PATH}/cert.pem`" \
+    -e "TLSKEY=`cat ${DOCKER_CERT_PATH}/key.pem`" \
     -e "DOCKER_HOST=$AGENT_DOCKER_HOST" \
     -e "MESOS_MASTER=zk://zookeeper:2181/mesos" \
-    misterbisson/triton-mesos-agent &
+    misterbisson/triton-mesos-agent:2015-07-06-triton-r1 &
 }
 
 datacenters=( "us-east-3b" "us-east-1" "us-sw-1" "eu-ams-1" )
@@ -45,7 +45,7 @@ do
     fi
 
     echo
-    echo "Creating agents for $i"
+    echo "Creating agent for $i"
     export AGENT_DC=$i
     export AGENT_DOCKER_HOST="tcp://$i.docker.joyent.com:2376"
     start_agent

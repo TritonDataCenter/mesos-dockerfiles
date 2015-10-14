@@ -95,14 +95,18 @@ command -v open >/dev/null 2>&1 && `open http://$MARATHON/`
 # echo "# execute the following to create agents in each of multiple data centers"
 # echo "# this parallelizes docker operations in each data center and adds geographic diversity"
 # echo
-# echo "bash start-agent.sh $COMPOSE_PROJECT_NAME $MESOS_MASTER $DOCKER_HOST"
+# echo "bash start-agents.sh $COMPOSE_PROJECT_NAME $MESOS_MASTER $DOCKER_HOST"
 
 echo
 echo 'Mesos with Marathon environment now running'
 
 echo
 echo 'Set your environment vars for convenience:'
-echo 'eval "$(bash env.sh $COMPOSE_PROJECT_NAME)"'
+# these lines are broken up to prevent parsing in this bash script
+echo -n 'eval "$(bash env.sh '
+echo -n $COMPOSE_PROJECT_NAME
+echo -n ")\""
+echo
 
 echo
 echo 'Get started with some "hello world" apps:'

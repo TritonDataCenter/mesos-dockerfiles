@@ -47,7 +47,7 @@ marathon:
 # the Mesos agent
 #
 agent:
-    image: misterbisson/triton-mesos-agent:2015-07-06-triton
+    image: misterbisson/triton-mesos-agent:2015-07-06-triton-r1
     restart: always
     mem_limit: 128m
     links:
