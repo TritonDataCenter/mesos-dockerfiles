@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# create Mesos slaves to connect to multiple Triton data centers
+# create Mesos agents to connect to multiple Triton data centers
 # this adds geographic diversity and redundancy, but adds complexity for everything else
 #
 # this doesn't use Docker Compose because it doesn't seem to work for this case
@@ -16,11 +16,11 @@ echo "     project prefix: $COMPOSE_PROJECT_NAME"
 echo "       mesos master: $MESOS_MASTER"
 echo "current Docker host: $DOCKER_HOST"
 
-function start_slave {
+function start_agent {
 
     for i in {1..2}
     do
-        name="$COMPOSE_PROJECT_NAME"_slave_"$SLAVE_DC"_"$i"
+        name="$COMPOSE_PROJECT_NAME"_agent_"$AGENT_DC"_"$i"
         link="$COMPOSE_PROJECT_NAME"_zookeeper_1
         echo "creating $name on $DOCKER_HOST connected to $MESOS_MASTER"
 
@@ -34,9 +34,9 @@ function start_slave {
         -e "TLSCA=`cat "$DOCKER_CERT_PATH"/ca.pem`" \
         -e "TLSCERT=`cat "$DOCKER_CERT_PATH"/cert.pem`" \
         -e "TLSKEY=`cat "$DOCKER_CERT_PATH"/key.pem`" \
-        -e "DOCKER_HOST=$SLAVE_DOCKER_HOST" \
+        -e "DOCKER_HOST=$AGENT_DOCKER_HOST" \
         -e "MESOS_MASTER=zk://zookeeper:2181/mesos" \
-        misterbisson/triton-mesos-slave &
+        misterbisson/triton-mesos-agent &
     done
 }
 
@@ -51,8 +51,8 @@ do
     fi
 
     echo
-    echo "Creating slaves for $i"
-    export SLAVE_DC=$i
-    export SLAVE_DOCKER_HOST="tcp://$i.docker.joyent.com:2376"
-    start_slave
+    echo "Creating agents for $i"
+    export AGENT_DC=$i
+    export AGENT_DOCKER_HOST="tcp://$i.docker.joyent.com:2376"
+    start_agent
 done

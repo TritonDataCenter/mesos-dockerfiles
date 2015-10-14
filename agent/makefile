@@ -7,9 +7,9 @@ TAG?=latest
 
 # run the Docker build
 build:
-	docker build -t="misterbisson/triton-mesos-slave:${TAG}" .
+	docker build -t="misterbisson/triton-mesos-agent:${TAG}" .
 
 # push our image to the public registry
 ship: build
-	docker push "misterbisson/triton-mesos-slave:${TAG}"
+	docker push "misterbisson/triton-mesos-agent:${TAG}"
 

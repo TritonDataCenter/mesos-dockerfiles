@@ -44,10 +44,10 @@ marathon:
         - MARATHON_ZK=zk://zookeeper:2181/marathon
 
 #
-# the Mesos slave
+# the Mesos agent
 #
-slave:
-    image: misterbisson/triton-mesos-slave:2015-07-06-triton
+agent:
+    image: misterbisson/triton-mesos-agent:2015-07-06-triton
     restart: always
     mem_limit: 128m
     links:
@@ -55,7 +55,7 @@ slave:
     ports:
         - 5051
     environment:
-        # the vars that connect this slave to the Docker API
+        # the vars that connect this agent to the Docker API
         - TLSCA
         - TLSCERT
         - TLSKEY

@@ -1,5 +1,5 @@
 #
-# Triton-optimized Mesos slave
+# Triton-optimized Mesos agent
 #
 FROM 		misterbisson/triton-mesos:2015-07-06-triton
 MAINTAINER 	Casey Bisson <casey.bisson@gmail.com>
@@ -38,5 +38,5 @@ ENV MESOS_HOSTNAME_LOOKUP=false
 
 EXPOSE $MESOS_PORT
 
-CMD ["triton-mesos-slave"]
+CMD ["triton-mesos-agent"]
 
