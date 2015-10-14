@@ -92,10 +92,10 @@ echo 'Marathon is now running'
 echo "Dashboard: $MARATHON"
 command -v open >/dev/null 2>&1 && `open http://$MARATHON/`
 
-# echo "# execute the following to create two agents in each of multiple data centers"
+# echo "# execute the following to create agents in each of multiple data centers"
 # echo "# this parallelizes docker operations in each data center and adds geographic diversity"
 # echo
-# echo "bash start-agents $COMPOSE_PROJECT_NAME $MESOS_MASTER $DOCKER_HOST"
+# echo "bash start-agent.sh $COMPOSE_PROJECT_NAME $MESOS_MASTER $DOCKER_HOST"
 
 echo
 echo 'Mesos with Marathon environment now running'
