@@ -5,7 +5,7 @@ This is a Docker Compose file and shell script that will deploy a Mesos with Mar
 ## Prep your environment
 
 1. [Get a Joyent account](https://my.joyent.com/landing/signup/) and [add your SSH key](https://docs.joyent.com/public-cloud/getting-started).
-1. Install and the [Docker Engine](https://docs.docker.com/installation/mac/) (including `docker` and `docker-compose`) on your laptop or other environment, along with the [Joyent CloudAPI CLI tools](https://apidocs.joyent.com/cloudapi/#getting-started) (including the `smartdc` tools and `json`).
+1. Install and the [Docker Engine](https://docs.docker.com/installation/mac/) (including `docker` and `docker-compose`) on your laptop or other environment, along with the [Joyent CloudAPI CLI tools](https://apidocs.joyent.com/cloudapi/#getting-started) (including the `smartdc` and `json` tools).
 1. [Configure your Docker CLI and Compose for use with Joyent](https://docs.joyent.com/public-cloud/api-access/docker):
 
 ```

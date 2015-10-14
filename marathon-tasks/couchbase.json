@@ -56,6 +56,20 @@
                     "value": "always"
                 }
             ],
+            "env": [
+                {
+                    "CONSUL_HOST": "http://consul:8500"
+                },
+                {
+                    "COUCHBASE_SERVICE_NAME": "couchbase"
+                },
+                {
+                    "COUCHBASE_USER": "Administrator"
+                },
+                {
+                    "COUCHBASE_PASS": "password"
+                }
+            ],
             "forcePullImage": false
         }
     },
