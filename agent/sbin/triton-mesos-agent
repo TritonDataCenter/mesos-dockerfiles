@@ -21,7 +21,7 @@ echo "Disk: $MESOS_RESOURCES_DISK"
 echo
 
 # then do the things necessary to start the Mesos agent
-/usr/local/sbin/mesos-agent \
+/usr/local/sbin/mesos-slave \
     --resources="cpus:$MESOS_RESOURCES_CPUS;mem:$MESOS_RESOURCES_MEM;disk:$MESOS_RESOURCES_DISK;ports:[0-65535]" \
     --containerizers=docker \
     --docker_socket="$DOCKER_HOST"
