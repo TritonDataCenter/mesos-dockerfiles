@@ -11,7 +11,7 @@ then
 fi
 
 echo
-echo "Joyent Triton-optimized Mesos slave starting"
+echo "Joyent Triton-optimized Mesos agent starting"
 echo "Docker host: $DOCKER_HOST"
 echo
 echo "Maximum allowed resources (change via env vars):"
@@ -20,12 +20,12 @@ echo "Memory: $MESOS_RESOURCES_MEM"
 echo "Disk: $MESOS_RESOURCES_DISK"
 echo
 
-# then do the things necessary to start the Mesos slave
+# then do the things necessary to start the Mesos agent
 /usr/local/sbin/mesos-slave \
     --resources="cpus:$MESOS_RESOURCES_CPUS;mem:$MESOS_RESOURCES_MEM;disk:$MESOS_RESOURCES_DISK;ports:[0-65535]" \
     --containerizers=docker \
     --docker_socket="$DOCKER_HOST"
 
 echo
-echo "The mesos-slave unexpectedly exited. This container will now exit."
+echo "The mesos-agent unexpectedly exited. This container will now exit."
 
