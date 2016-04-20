@@ -2,7 +2,7 @@
 
 # check for prereqs
 command -v docker >/dev/null 2>&1 || { echo "Docker is required, but does not appear to be installed. See https://docs.joyent.com/public-cloud/api-access/docker"; exit; }
-command -v sdc-listmachines >/dev/null 2>&1 || command -v triton >/dev/null 2>&1 ||{ echo "Joyent CloudAPI CLI is required, but does not appear to be installed. See https://apidocs.joyent.com/cloudapi/#getting-started"; exit; }
+command -v sdc-listmachines >/dev/null 2>&1 || command -v triton >/dev/null 2>&1 || { echo "Joyent CloudAPI CLI is required, but does not appear to be installed. See https://apidocs.joyent.com/cloudapi/#getting-started"; exit; }
 command -v json >/dev/null 2>&1 || { echo "JSON CLI tool is required, but does not appear to be installed. See https://apidocs.joyent.com/cloudapi/#getting-started"; exit; }
 
 # manually name the project
